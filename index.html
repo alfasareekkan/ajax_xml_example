@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="populate">populate datA</button>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>username</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody id="result_area">
+
+        </tbody>
+    </table>
+    <script>
+        var xhr=new XMLHttpRequest()
+        xhr.open('GET','https://jsonplaceholder.typicode.com/users')
+        xhr.onreadystatechange=()=>{
+            if(xhr.readyState==4 && xhr.status==200){ 
+                var html=""
+                var result =JSON.parse(xhr.responseText)
+                console.log(result);
+                result.forEach(element => {
+                    html=html+"<tr><td>"+element.id+"</td> <td>"+element.name+"</td> <td>"+element.email+"</td><td>"+element.username+"</td></tr> "
+                });
+                document.getElementById('result_area').innerHTML=html
+
+            }
+            // else{
+            //     alert("failed")
+            // }
+        }
+        document.getElementById('populate').addEventListener('click',()=>{
+            xhr.send()
+        })
+       
+    </script>
+
+</body>
+</html>
